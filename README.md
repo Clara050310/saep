@@ -1,18 +1,18 @@
-## Documentação de controle de estoque
+# Documentação de controle de estoque
 
-# Contextualização
+## Contextualização
 - Um fabricante de ferramentas enfrenta desafios críticos na gestão de estoque.
 
-# Desafio
+## Desafio
 - Desenvolver um sistema web que permite cadastrar produtos, gerenciar entrada e saida do estoque/produtos.
 
-# Tecnologias Utilizadas
+## Tecnologias Utilizadas
 - JavaScript;
 - Express,js;
 - SQlite;
 - VScode.
 
-# Requisitos Funcionais
+## Requisitos Funcionais
 1. Login de usuário com validação e mensagem de erro.
 2. Cadastro de novos usuários.
 3. Interface principal exibindo nome do usuário logado.
@@ -23,7 +23,7 @@
 8. Alertas automáticos quando estoque estive abaixo do minimo.
 9. Ordenação de produtos alfabeticamente na gestão de estoque.
 
-# Requisitos não funcionais
+## Requisitos não funcionais
 1. O sistema deve carregar a interface principal em até 2 segundo.
 2. As senhas devem ser armazenadas de forma segura.
 3. O acesso as páginas internas deve ser restrito apenas a usuários autenticados.
@@ -31,7 +31,7 @@
 5. Mensagem de eroo e alertas devem ser claras e informativas para o usuário.
 6. Possibilidade de adicionar novos módulos, como relatórios e gráficos de estoque.
 
-# Script de criação do banco de dados
+## Script de criação do banco de dados
 
 ```sql
 
@@ -65,5 +65,13 @@ CREATE TABLE movimentacao (
 );
 
 ```
+## Diagrama Entidade-Relacionamento (DER)
+
+| Tabela     | Campos                                  |
+|-----------|----------------------------------------|
+| USUARIO   | id_usuario (PK), nome, login, senha     |
+| PRODUTO   | id_produto (PK), nome, descricao, material, peso, tamanho, estoque_minimo, estoque_atual |
+| MOVIMENTACAO | id_mov (PK), id_produto (FK), id_usuario (FK), tipo_mov, quantidade, data_mov |
+
 
 
