@@ -103,42 +103,95 @@ CREATE TABLE movimentacao (
 
 ## Diagrama de casos de uso
 
+mermaid
 graph TD
-    %% Login
-    A[Início] --> B[Acessa Tela de Login]
-    B --> C[Preencher Usuário e Senha]
-    C --> D{Credenciais Válidas?}
-    D --|SIM|--> E[Tela Principal]
-    D --|NÃO|--> F[Exibir Mensagem de Erro]
-    F --> B
+  subgraph "Inventario App"
+    u1([Fazer Login])
+    u2([Gerenciar Produtos - CRUD])
+    u3([Gerenciar Estoque - Registrar Movimento])
+    u4([Visualizar Alertas])
+    u5([Visualizar Histórico])
+    u6([Acessar Dashboard])
+  end
 
-    %% Tela Principal
-    E --> G[Cadastrar Produto]
-    E --> H[Gestão de Estoque]
-    E --> I[Logout]
+  Admin([Administrador])
+  Operador([ Operador])
 
-    %% Cadastro de Produto
-    G --> J[Preencher Dados do Produto]
-    J --> K{Dados Válidos?}
-    K --|SIM|--> L[Inserir Produto no Banco de Dados]
-    L --> M[Atualizar Tabela de Produtos]
-    K --|NÃO|--> N[Exibir Mensagem de Erro]
-    N --> J
-    M --> O[Voltar para Tela Principal]
-    O --> E
+  Admin --> u1
+  Admin --> u2
+  Admin --> u3
+  Admin --> u4
+  Admin --> u5
+  Admin --> u6
 
-    %% Gestão de Estoque
-    H --> P[Selecionar Produto]
-    P --> Q[Selecionar Tipo de Movimentação (Entrada/Saída)]
-    Q --> R[Inserir Quantidade]
-    R --> S[Inserir Data]
-    S --> T{Estoque Final < Estoque Mínimo?}
-    T --|SIM|--> U[Exibir Alerta de Estoque Baixo]
-    T --> V[Registrar Movimentação no Banco de Dados]
-    V --> W[Atualizar Tabela de Estoque]
-    W --> X[Voltar para Tela Principal]
-    X --> E
+  Operador --> u1
+  Operador --> u3
+  Operador --> u4
+  Operador --> u5
+  Operador --> u6
 
-    %% Logout
-    I --> Y[Destruir Sessão]
-    Y --> B
+  u3 --> u4
+
+
+  ## Diagrama de classe
+
+  mermaid
+classDiagram
+  class User {
+    +ObjectId id
+    +String username
+    +String passwordHash
+    +String name
+    +String role
+    +CRUD()
+    +login()
+    +logout()
+  }
+
+  class Product {
+    +ObjectId id
+    +String name
+    +String description
+    +String category
+    +String size
+    +Number weight
+    +String material
+    +Number currentStock
+    +Number minStock
+    +Number price
+    +CRUD()
+  }
+
+  class StockMovement {
+    +ObjectId id
+    +String type
+    +Number quantity
+    +Date date
+    +ObjectId productId
+    +ObjectId responsibleId
+    +CRUD()
+  }
+
+  User "1" -- "0..*" StockMovement : records
+  Product "1" -- "0..*" StockMovement : has
+
+## Diagrama de fluxo
+
+mermaid
+graph TD
+  A[Inicio] --> B{Acessa tela de login?}
+  B --> C[Preencher usuário e senha]
+  C --> D{Validar credenciais}
+  D -->|Sim| E[Ir para Dashboard]
+  D -->|Não| F[Mostrar erro e voltar ao login]
+  E --> G[Selecionar produto]
+  G --> H[Escolher tipo e quantidade]
+  H --> I{Tipo é Saída?}
+  I -->|Sim| J[Verificar estoque suficiente]
+  I -->|Não| K[Registrar entrada e atualizar estoque]
+  J -->|Suficiente| K
+  J -->|Insuficiente| L[Mostrar erro: Estoque insuficiente]
+  K --> M{Estoque menor ou igual ao minimo?}
+  M -->|Sim| N[Gerar alerta de estoque baixo]
+  M -->|Não| O[Fim]
+  N --> O
