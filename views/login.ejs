@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - SAEP</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .register-link {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #c93434; /* vermelho */
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .register-link:hover {
+      color: #a82d2d;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body class="center">
+  <div class="card">
+    <h2>Login do Sistema</h2>
+
+    <% if (erro) { %>
+      <p class="erro"><%= erro %></p>
+    <% } %>
+
+    <form method="POST" action="/login">
+      <input type="text" name="login" placeholder="Usuário" required>
+      <input type="password" name="senha" placeholder="Senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+
+    <!-- Link para registrar -->
+    <a href="/registro" class="register-link">Não tem uma conta? Registre-se</a>
+  </div>
+</body>
+</html>

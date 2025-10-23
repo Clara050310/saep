@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestão de Estoque - SAEP</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #fff;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #c93434;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+      color: #a82d2d;
+    }
+
+    main {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .form-card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border: 2px solid #c93434;
+      margin-bottom: 30px;
+    }
+
+    .form-card select, .form-card input, .form-card button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+
+    .form-card button {
+      background: #c93434;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .form-card button:hover {
+      background: #a82d2d;
+    }
+
+    .back-button {
+      background: #555; /* cinza escuro */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      text-decoration: none;
+      display: inline-block;
+      transition: 0.3s;
+    }
+
+    .back-button:hover {
+      background: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #c93434;
+      color: white;
+    }
+
+    tr.baixo {
+      background-color: #ffd6d6;
+      color: #c93434;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Gestão de Estoque</h1>
+    <nav>
+      <a href="/principal">Início</a>
+      <a href="/cadastro_produto">Cadastro</a>
+      <a href="/logout">Sair</a>
+    </nav>
+  </header>
+
+  <main>
+    <a href="/principal" class="back-button">Voltar</a>
+
+    <form method="POST" action="/movimentar" class="form-card">
+      <select name="id_produto" required>
+        <option value="">Selecione um produto</option>
+        <% produtos.forEach(p => { %>
+          <option value="<%= p.id_produto %>"><%= p.nome %> (Estoque: <%= p.estoque_atual %>)</option>
+        <% }) %>
+      </select>
+
+      <select name="tipo" required>
+        <option value="entrada">Entrada</option>
+        <option value="saida">Saída</option>
+      </select>
+
+      <input type="number" name="quantidade" placeholder="Quantidade" required>
+      <input type="date" name="data_mov" required>
+      <button type="submit">Registrar Movimentação</button>
+    </form>
+
+    <h2>Produtos</h2>
+    <table>
+      <tr>
+        <th>Nome</th><th>Estoque Atual</th><th>Estoque Mínimo</th>
+      </tr>
+      <% produtos.forEach(p => { %>
+        <tr class="<%= p.estoque_atual < p.estoque_minimo ? 'baixo' : '' %>">
+          <td><%= p.nome %></td>
+          <td><%= p.estoque_atual %></td>
+          <td><%= p.estoque_minimo %></td>
+        </tr>
+      <% }) %>
+    </table>
+  </main>
+</body>
+</html>
