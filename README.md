@@ -136,7 +136,7 @@ graph TD
 
 ## Diagrama de classe
 
-  mermaid
+```mermaid
 classDiagram
   class User {
     +ObjectId id
