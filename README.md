@@ -103,35 +103,42 @@ CREATE TABLE movimentacao (
 
 ## Diagrama de casos de uso
 
-%% Casos de Uso SAEP
-%% Sintaxe Mermaid para Use Case
-%% Basta colar no README.md
+graph TD
+    %% Login
+    A[Início] --> B[Acessa Tela de Login]
+    B --> C[Preencher Usuário e Senha]
+    C --> D{Credenciais Válidas?}
+    D --|SIM|--> E[Tela Principal]
+    D --|NÃO|--> F[Exibir Mensagem de Erro]
+    F --> B
 
-%% Definindo o ator e casos de uso
-%% Mermaid usa syntax usecase
-%% Não é tão completa quanto UML tradicional, mas funciona para visualização simples
+    %% Tela Principal
+    E --> G[Cadastrar Produto]
+    E --> H[Gestão de Estoque]
+    E --> I[Logout]
 
-%% Ator
-actor Usuario
+    %% Cadastro de Produto
+    G --> J[Preencher Dados do Produto]
+    J --> K{Dados Válidos?}
+    K --|SIM|--> L[Inserir Produto no Banco de Dados]
+    L --> M[Atualizar Tabela de Produtos]
+    K --|NÃO|--> N[Exibir Mensagem de Erro]
+    N --> J
+    M --> O[Voltar para Tela Principal]
+    O --> E
 
-%% Casos de uso
-usecase Login as UC1
-usecase TelaPrincipal as UC2
-usecase CadastrarProduto as UC3
-usecase EditarProduto as UC4
-usecase ExcluirProduto as UC5
-usecase GerenciarEstoque as UC6
-usecase RegistrarMovimentacao as UC7
-usecase AlertaEstoqueBaixo as UC8
-usecase Logout as UC9
+    %% Gestão de Estoque
+    H --> P[Selecionar Produto]
+    P --> Q[Selecionar Tipo de Movimentação (Entrada/Saída)]
+    Q --> R[Inserir Quantidade]
+    R --> S[Inserir Data]
+    S --> T{Estoque Final < Estoque Mínimo?}
+    T --|SIM|--> U[Exibir Alerta de Estoque Baixo]
+    T --> V[Registrar Movimentação no Banco de Dados]
+    V --> W[Atualizar Tabela de Estoque]
+    W --> X[Voltar para Tela Principal]
+    X --> E
 
-%% Relacionamentos
-Usuario --> UC1
-Usuario --> UC2
-Usuario --> UC3
-Usuario --> UC4
-Usuario --> UC5
-Usuario --> UC6
-Usuario --> UC7
-Usuario --> UC8
-Usuario --> UC9
+    %% Logout
+    I --> Y[Destruir Sessão]
+    Y --> B
