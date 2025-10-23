@@ -103,71 +103,38 @@ CREATE TABLE movimentacao (
 
 ## Interface do Login em diagrama
 
-+-------------------------+
-|       Tela de Login     |
-+-------------------------+
-| [Usuário]  [Senha]     |
-| [Entrar]               |
-|                        |
-| Erro: Usuário inválido |
-+-------------------------+
-          |
-          v
-+-------------------------+
-| Tela Principal (se login correto) |
-+-------------------------+
+flowchart TD
+    A[Tela de Login] -->|Login correto| B[Tela Principal]
+    A -->|Login incorreto| A
+    B --> C[Cadastro de Produto]
+    B --> D[Gestão de Estoque]
+    B --> E[Logout]
 
 ## Interface Principal do sistema
 
-+-----------------------------+
-|     Tela Principal SAEP     |
-+-----------------------------+
-| Bem-vindo, [Nome do Usuário]|
-|                             |
-| [Cadastro de Produto]       |
-| [Gestão de Estoque]         |
-| [Logout]                    |
-+-----------------------------+
+flowchart TD
+    A[Tela Principal] --> B[Cadastro de Produto]
+    A --> C[Gestão de Estoque]
+    A --> D[Logout]
 
 ## Interface de cadastro de produto
 
-+----------------------------------+
-|     Cadastro de Produto          |
-+----------------------------------+
-| [Campo Nome]                     |
-| [Campo Descrição]                |
-| [Campo Material]                 |
-| [Campo Peso]                     |
-| [Campo Tamanho]                  |
-| [Campo Estoque Mínimo]           |
-| [Cadastrar Produto]              |
-+----------------------------------+
-| Tabela de Produtos Cadastrados   |
-|----------------------------------|
-| Nome | Descrição | Material | ...|
-|-------------------------------|
-| Produto1 | ...                 |
-| Produto2 | ...                 |
-+----------------------------------+
-| [Editar] [Excluir] [Voltar]     |
-+----------------------------------+
+flowchart TD
+    A[Cadastro de Produto] --> B[Tabela de Produtos Cadastrados]
+    A --> C[Campos de Cadastro]
+    C --> D[Cadastrar Produto]
+    B --> E[Editar Produto]
+    B --> F[Excluir Produto]
+    A --> G[Voltar para Tela Principal]
 
 ## Interface de gestão de estoque
 
-+----------------------------------+
-|       Gestão de Estoque          |
-+----------------------------------+
-| Selecionar Produto: [Dropdown]  |
-| Tipo de Movimentação: [Entrada/ Saída] |
-| Quantidade: [Campo]             |
-| Data: [Campo]                    |
-| [Registrar Movimentação]         |
-+----------------------------------+
-| Tabela de Produtos               |
-| Nome | Estoque Atual | Estoque Mínimo |
-|-------------------------------|
-| Produto1 | 20 | 10             |
-| Produto2 | 5  | 8  (Alerta!)   |
-+----------------------------------+
-| [Voltar]                         |
-+----------------------------------+
+flowchart TD
+    A[Gestão de Estoque] --> B[Selecionar Produto]
+    B --> C[Tipo de Movimentação]
+    C --> D[Inserir Quantidade]
+    D --> E[Inserir Data]
+    E --> F[Registrar Movimentação]
+    A --> G[Tabela de Produtos com Estoque]
+    F --> G
+    A --> H[Voltar para Tela Principal]
