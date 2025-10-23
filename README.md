@@ -101,3 +101,19 @@ CREATE TABLE movimentacao (
 | CT20 | Consistência de estoque | Realizar múltiplas entradas e saídas | Estoque final corresponde às somas/subtrações corretas das movimentações |
 
 
+## Diagrama de casos de uso
+
+usecase
+title Casos de Uso - SAEP
+
+actor Usuario
+
+Usuario --> (Login)
+Usuario --> (Visualizar Tela Principal)
+Usuario --> (Cadastrar Produto)
+Usuario --> (Editar Produto)
+Usuario --> (Excluir Produto)
+Usuario --> (Gerenciar Estoque)
+Usuario --> (Registrar Movimentação)
+Usuario --> (Receber Alerta Estoque Baixo)
+Usuario --> (Logout)
