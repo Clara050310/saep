@@ -101,3 +101,73 @@ CREATE TABLE movimentacao (
 | CT20 | Consistência de estoque | Realizar múltiplas entradas e saídas | Estoque final corresponde às somas/subtrações corretas das movimentações |
 
 
+## Interface do Login em diagrama
+
++-------------------------+
+|       Tela de Login     |
++-------------------------+
+| [Usuário]  [Senha]     |
+| [Entrar]               |
+|                        |
+| Erro: Usuário inválido |
++-------------------------+
+          |
+          v
++-------------------------+
+| Tela Principal (se login correto) |
++-------------------------+
+
+## Interface Principal do sistema
+
++-----------------------------+
+|     Tela Principal SAEP     |
++-----------------------------+
+| Bem-vindo, [Nome do Usuário]|
+|                             |
+| [Cadastro de Produto]       |
+| [Gestão de Estoque]         |
+| [Logout]                    |
++-----------------------------+
+
+## Interface de cadastro de produto
+
++----------------------------------+
+|     Cadastro de Produto          |
++----------------------------------+
+| [Campo Nome]                     |
+| [Campo Descrição]                |
+| [Campo Material]                 |
+| [Campo Peso]                     |
+| [Campo Tamanho]                  |
+| [Campo Estoque Mínimo]           |
+| [Cadastrar Produto]              |
++----------------------------------+
+| Tabela de Produtos Cadastrados   |
+|----------------------------------|
+| Nome | Descrição | Material | ...|
+|-------------------------------|
+| Produto1 | ...                 |
+| Produto2 | ...                 |
++----------------------------------+
+| [Editar] [Excluir] [Voltar]     |
++----------------------------------+
+
+## Interface de gestão de estoque
+
++----------------------------------+
+|       Gestão de Estoque          |
++----------------------------------+
+| Selecionar Produto: [Dropdown]  |
+| Tipo de Movimentação: [Entrada/ Saída] |
+| Quantidade: [Campo]             |
+| Data: [Campo]                    |
+| [Registrar Movimentação]         |
++----------------------------------+
+| Tabela de Produtos               |
+| Nome | Estoque Atual | Estoque Mínimo |
+|-------------------------------|
+| Produto1 | 20 | 10             |
+| Produto2 | 5  | 8  (Alerta!)   |
++----------------------------------+
+| [Voltar]                         |
++----------------------------------+
