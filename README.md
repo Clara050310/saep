@@ -103,17 +103,35 @@ CREATE TABLE movimentacao (
 
 ## Diagrama de casos de uso
 
-usecase
-title Casos de Uso - SAEP
+%% Casos de Uso SAEP
+%% Sintaxe Mermaid para Use Case
+%% Basta colar no README.md
 
+%% Definindo o ator e casos de uso
+%% Mermaid usa syntax usecase
+%% Não é tão completa quanto UML tradicional, mas funciona para visualização simples
+
+%% Ator
 actor Usuario
 
-Usuario --> (Login)
-Usuario --> (Visualizar Tela Principal)
-Usuario --> (Cadastrar Produto)
-Usuario --> (Editar Produto)
-Usuario --> (Excluir Produto)
-Usuario --> (Gerenciar Estoque)
-Usuario --> (Registrar Movimentação)
-Usuario --> (Receber Alerta Estoque Baixo)
-Usuario --> (Logout)
+%% Casos de uso
+usecase Login as UC1
+usecase TelaPrincipal as UC2
+usecase CadastrarProduto as UC3
+usecase EditarProduto as UC4
+usecase ExcluirProduto as UC5
+usecase GerenciarEstoque as UC6
+usecase RegistrarMovimentacao as UC7
+usecase AlertaEstoqueBaixo as UC8
+usecase Logout as UC9
+
+%% Relacionamentos
+Usuario --> UC1
+Usuario --> UC2
+Usuario --> UC3
+Usuario --> UC4
+Usuario --> UC5
+Usuario --> UC6
+Usuario --> UC7
+Usuario --> UC8
+Usuario --> UC9
