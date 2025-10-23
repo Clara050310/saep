@@ -103,7 +103,7 @@ CREATE TABLE movimentacao (
 
 ## Diagrama de casos de uso
 
-mermaid
+```mermaid
 graph TD
   subgraph "Inventario App"
     u1([Fazer Login])
@@ -174,10 +174,11 @@ classDiagram
 
   User "1" -- "0..*" StockMovement : records
   Product "1" -- "0..*" StockMovement : has
+```
 
 ## Diagrama de fluxo
 
-mermaid
+```mermaid
 graph TD
   A[Inicio] --> B{Acessa tela de login?}
   B --> C[Preencher usuário e senha]
@@ -195,3 +196,4 @@ graph TD
   M -->|Sim| N[Gerar alerta de estoque baixo]
   M -->|Não| O[Fim]
   N --> O
+  ```
